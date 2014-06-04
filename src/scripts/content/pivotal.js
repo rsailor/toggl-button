@@ -8,7 +8,9 @@ togglbutton.render('form.story:not(.toggl)', {observe: true}, function (elem) {
     titleElem = $('textarea', elem),
     container = $('.edit aside', elem),
     projectName = $('title').textContent,
-    projectId = $('[id^=story_copy_id_value]').attr('value');
+    projectIdElem = $('[id^=story_copy_id_value]');
+
+    console.log(projectIdElem)
 
   if (titleElem === null || container === null) {
     return;
@@ -16,7 +18,7 @@ togglbutton.render('form.story:not(.toggl)', {observe: true}, function (elem) {
 
   link = togglbutton.createTimerLink({
     className: 'pivotal',
-    description: projectId + ": " + titleElem.value,
+    description: projectIdElem.getAttribute('value') + ": " + titleElem.value,
     projectName: projectName && projectName.split(' -').shift()
   });
 
