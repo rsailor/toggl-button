@@ -8,7 +8,7 @@ togglbutton.render('form.story:not(.toggl)', {observe: true}, function (elem) {
     titleElem = $('textarea', elem),
     container = $('.edit aside', elem),
     projectName = $('title').textContent,
-    projectIdElem = $('[id^=story_copy_id_value]');
+    projectIdElem = $('[id*=copy_id_value]');
 
     console.log(projectIdElem)
 
