@@ -2,6 +2,10 @@
 
 Add Toggl one-click time tracking to popular web tools.
 
+This is a custom edit that adds a pivotal id to the toggl entry.
+
+Thanks to the Toggl team for making this open source.
+
 ## Compatible services
   - [TeamWeek][2]
   - [Pivotal tracker][3]
@@ -34,6 +38,7 @@ Can't. Sry. :-(
 2.  Navigate to `chrome://extensions/` and enable "Developer Mode".
 3.  Choose "Load unpacked extension..."
 4.  Open the 'src' directory you just cloned and follow the prompts to install.
+5.  Refresh Toggl and then Pivotal to see results. Toggl button shows up in story expanded view.
 
 ## Using the Button
 1.  Log in to your [Toggl][1] account and keep yourself logged in (no need to keep the tab open).
