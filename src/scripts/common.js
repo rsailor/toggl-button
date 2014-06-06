@@ -1,7 +1,7 @@
 /*jslint indent: 2 */
 /*global document: false, MutationObserver: false, chrome: false*/
 "use strict";
-
+ 
 function $(s, elem) {
   elem = elem || document;
   return elem.querySelector(s);
@@ -77,9 +77,10 @@ var togglbutton = {
     }
 
     link.addEventListener('click', function (e) {
+      console.log("ToggleButton clicked");
       var opts, linkText, color = '';
       e.preventDefault();
-
+      console.log(this.isStarted);
       if (this.isStarted) {
         link.classList.remove('active');
         linkText = 'Start timer';
