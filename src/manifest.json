@@ -1,8 +1,8 @@
 {
-  "name": "Toggl Button",
-  "version": "0.3.2",
+  "name": "Sailor's Toggl Button",
+  "version": "1.0.0",
   "manifest_version": 2,
-  "description": "Add Official Toggl Online Timer to Popular Web Tools",
+  "description": "Modification of the official Toggl chrome extension",
   "background": {
     "scripts": [
       "scripts/background.js"

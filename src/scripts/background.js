@@ -64,8 +64,6 @@ var TogglButton = {
   },
 
   createTimeEntry: function(timeEntry) {
-    console.log("In createTimeEntry");
-    console.log(timeEntry);
     var xhr = new XMLHttpRequest();
     xhr.open("GET", TogglButton.$newApiUrl + "/me?with_related_data=true", true);
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(TogglButton.$user.api_token + ':api_token'));
@@ -75,7 +73,6 @@ var TogglButton = {
       responseData = JSON.parse(xhr.responseText);
       projects = responseData.data.projects; 
       targetProject = timeEntry.projectName;
-      console.log("projects:" + projects);
       // find targetProject in projects array
       var projectsLength = projects.length;
       var i, targetProjectData;
@@ -85,7 +82,6 @@ var TogglButton = {
           break;
         }
       }
-      console.log("Retrieved: " + JSON.stringify(targetProjectData));
       var pid, billable;
       if (targetProjectData.hasOwnProperty("id")) {
         pid = targetProjectData.id;
@@ -94,15 +90,12 @@ var TogglButton = {
         billable = targetProjectData.billable;
       }
 
-      console.log("id: " + pid);
-      console.log("billable: " + billable);
       TogglButton.createTimeEntryExecute(timeEntry, billable, pid);
     });
     xhr.send();
   },
 
   createTimeEntryExecute: function (timeEntry, billable, pid) {
-    console.log("In createTimeEntryExecute");
     var start = new Date(),
       xhr = new XMLHttpRequest(),
       entry = {
@@ -157,8 +150,6 @@ var TogglButton = {
   },
 
   newMessage: function (request, sender, sendResponse) {
-    console.log("Message received");
-    console.log("Message type: " + request.type);
     if (request.type === 'activate') {
       TogglButton.setPageAction(sender.tab.id);
       sendResponse({success: TogglButton.$user !== null, user: TogglButton.$user});

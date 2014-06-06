@@ -77,10 +77,8 @@ var togglbutton = {
     }
 
     link.addEventListener('click', function (e) {
-      console.log("ToggleButton clicked");
       var opts, linkText, color = '';
       e.preventDefault();
-      console.log(this.isStarted);
       if (this.isStarted) {
         link.classList.remove('active');
         linkText = 'Start timer';
