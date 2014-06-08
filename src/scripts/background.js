@@ -69,25 +69,75 @@ var TogglButton = {
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(TogglButton.$user.api_token + ':api_token'));
     // handle response
     xhr.addEventListener('load', function (e) {
-      var responseData, projects, targetProject;
+      var responseData, projects, targetProjectName, storyTag;
       responseData = JSON.parse(xhr.responseText);
       projects = responseData.data.projects; 
-      targetProject = timeEntry.projectName;
+      targetProjectName = timeEntry.projectName;
+      storyTag = timeEntry.storyTag;
+
       // find targetProject in projects array
       var projectsLength = projects.length;
-      var i, targetProjectData;
-      for(i = 0; i < projectsLength; i++) {
-        if (projects[i].name == targetProject) {
-          targetProjectData = projects[i];
-          break;
+      var i, targetProjectData, isFound = false;
+
+      // Special Case for Internal projects
+      if(targetProjectName == "Internal") {
+
+        // Find first pivotal tag as project name
+        for(i = 0; i < projectsLength; i++) {
+          if (projects[i].name.toUpperCase() == storyTag.toUpperCase()) {
+            targetProjectData = projects[i];
+            isFound = true;
+            break;
+          }
+        }
+
+        // Otherwise, find Internal project
+        if(!isFound) {
+          for(i = 0; i < projectsLength; i++) {
+            if (projects[i].name.toUpperCase() == "INTERNAL") {
+              targetProjectData = projects[i];
+              break;
+            }
+          }
+        }
+      } else {
+
+        // Search for project called "<Pivotal Project> <First Tag>"
+        if(!isFound && storyTag !== null) {
+          for(i = 0; i < projectsLength; i++) {
+            if (projects[i].name.toUpperCase() == 
+              targetProjectName.toUpperCase() + " " + storyTag.toUpperCase()) {
+              targetProjectData = projects[i];
+              isFound = true;
+              break;
+            }
+          }
+        }
+
+        // If project name with tag is not found
+        // Search for project called "<Project Name>"
+        if(!isFound) {
+          for(i = 0; i < projectsLength; i++) {
+            if (projects[i].name.toUpperCase() == targetProjectName.toUpperCase()) {
+              targetProjectData = projects[i];
+              break;
+            }
+          }
         }
       }
+
+
       var pid, billable;
-      if (targetProjectData.hasOwnProperty("id")) {
-        pid = targetProjectData.id;
-      }
-      if (targetProjectData.hasOwnProperty("billable")) {
-        billable = targetProjectData.billable;
+      if(targetProjectData !== null) {
+        if (targetProjectData.hasOwnProperty("id")) {
+          pid = targetProjectData.id;
+        } else { pid = null; }
+        if (targetProjectData.hasOwnProperty("billable")) {
+          billable = targetProjectData.billable;
+        } else { billable = false; }
+      } else {
+        pid = null;
+        billable = false;
       }
 
       TogglButton.createTimeEntryExecute(timeEntry, billable, pid);
