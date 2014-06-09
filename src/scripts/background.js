@@ -69,25 +69,28 @@ var TogglButton = {
     xhr.setRequestHeader('Authorization', 'Basic ' + btoa(TogglButton.$user.api_token + ':api_token'));
     // handle response
     xhr.addEventListener('load', function (e) {
-      var responseData, projects, targetProjectName, storyTag;
+      var responseData, projects, targetProjectName, storyTags;
       responseData = JSON.parse(xhr.responseText);
       projects = responseData.data.projects; 
       targetProjectName = timeEntry.projectName;
-      storyTag = timeEntry.storyTag;
+      storyTags = timeEntry.storyTags;
 
       // find targetProject in projects array
       var projectsLength = projects.length;
-      var i, targetProjectData, isFound = false;
+      var i, targetProjectData = null, isFound = false;
+      var j, tagsLength = storyTags.length;
 
       // Special Case for Internal projects
       if(targetProjectName == "Internal") {
 
         // Find first pivotal tag as project name
         for(i = 0; i < projectsLength; i++) {
-          if (projects[i].name.toUpperCase() == storyTag.toUpperCase()) {
-            targetProjectData = projects[i];
-            isFound = true;
-            break;
+          for(j =0; j < tagsLength; j++) {
+            if (projects[i].name.toUpperCase() == storyTags[j].toUpperCase()) {
+              targetProjectData = projects[i];
+              isFound = true;
+              break;
+            }
           }
         }
 
@@ -100,16 +103,20 @@ var TogglButton = {
             }
           }
         }
+
+      // All other projects
       } else {
 
         // Search for project called "<Pivotal Project> <First Tag>"
-        if(!isFound && storyTag !== null) {
+        if(!isFound && storyTags !== null && tagsLength > 0) {
           for(i = 0; i < projectsLength; i++) {
-            if (projects[i].name.toUpperCase() == 
-              targetProjectName.toUpperCase() + " " + storyTag.toUpperCase()) {
-              targetProjectData = projects[i];
-              isFound = true;
-              break;
+            for(j = 0; j < tagsLength; j++) {
+              if (projects[i].name.toUpperCase() == 
+                targetProjectName.toUpperCase() + " " + storyTags[j].toUpperCase()) {
+                targetProjectData = projects[i];
+                isFound = true;
+                break;
+              }
             }
           }
         }
