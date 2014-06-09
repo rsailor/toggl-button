@@ -1,6 +1,6 @@
 {
   "name": "Sailor's Toggl Button",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "manifest_version": 2,
   "description": "Modification of the official Toggl chrome extension",
   "background": {
