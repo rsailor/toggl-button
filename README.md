@@ -30,7 +30,7 @@ Thanks to the Toggl team for making this open source.
 
 ## Installing from the Web Store
 
-Can't. Sry. :-(
+[Private Link!](https://chrome.google.com/webstore/detail/sailors-toggl-button/oohfgfijbboehkalfaignbcijfalccga) Just for you. Don't tell anyone.
 
 ## Installing from Source
 
