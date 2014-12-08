@@ -5,7 +5,7 @@
 var TogglButton = {
   $user: null,
   $curEntryId: null,
-  $apiUrl: "https://www.toggl.com/api/v7",
+  $apiUrl: "https://www.toggl.com/api/v8",
   $newApiUrl: "https://new.toggl.com/api/v8",
   $sites: new RegExp(
     [
